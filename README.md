@@ -38,8 +38,8 @@ again leaving all options as they are.
 ### Kotlin
 State:
 
-* Template: `kotlin-source/src/test/kotlin/net/corda/training/state/IOUState.kt`
-* Tests: `kotlin-source/src/main/kotlin/net/corda/training/state/IOUStateTests.kt`
+* Template: `kotlin-source/src/test/kotlin/net/corda/training/state/BondState.kt`
+* Tests: `kotlin-source/src/main/kotlin/net/corda/training/state/BondStateTests.kt`
 
 Contract:
 
@@ -59,9 +59,9 @@ Flow:
 
 The code in the following files was already added for you:
 
-* `kotlin-source/src/main/kotlin/net/corda/training/plugin/IOUPlugin.kt`
+* `kotlin-source/src/main/kotlin/net/corda/training/plugin/BondPlugin.kt`
 * `kotlin-source/src/test/kotlin/net/corda/training/Main.kt`
-* `kotling-source/src/main/kotlin/net/corda/training/plugin/IOUPlugin.kt`
+* `kotling-source/src/main/kotlin/net/corda/training/plugin/BondPlugin.kt`
 * `kotling-source/src/main/java/kotlin/corda/training/flow/SelfIssueCashFlow.kt`
 
 
@@ -118,7 +118,7 @@ with the app via a web browser.
 
 * From the terminal: Node A: `localhost:10009`, Node B: `localhost:10012`, Node C: `localhost:10015`.
 
-To access the front-end gui for each node, navigate to `localhost:XXXX/web/iou/`
+To access the front-end gui for each node, navigate to `localhost:XXXX/web/bond/`
 
 ## Troubleshooting:
 When running the flow tests, if you get a Quasar instrumention error then add:

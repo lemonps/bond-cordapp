@@ -84,7 +84,7 @@ COMING WEEKS, WE'LL WRITE A TUTORIAL ON HOW BEST TO DO THIS.
 </script>
 
 <script type="text/ng-template" id="createIOUMsgModal.html">
-    <div class="modal-body" id="create-iou-modal-body">
+    <div class="modal-body" id="create-bond-modal-body">
         {{ createIOUMsgModal.message }}
     </div>
 </script>
@@ -243,16 +243,16 @@ COMING WEEKS, WE'LL WRITE A TUTORIAL ON HOW BEST TO DO THIS.
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="iou in demoApp.ious">
-                        <td class="vert-align">{{iou.lender}}</td>
-                        <td class="vert-align">{{iou.borrower}}</td>
-                        <td class="vert-align">{{iou.amount}}</td>
-                        <td class="vert-align">{{iou.paid}}</td>
+                    <tr ng-repeat="bond in demoApp.ious">
+                        <td class="vert-align">{{bond.lender}}</td>
+                        <td class="vert-align">{{bond.borrower}}</td>
+                        <td class="vert-align">{{bond.amount}}</td>
+                        <td class="vert-align">{{bond.paid}}</td>
                         <td>
                             <div class="btn-group" role="group">
-                                <button ng-click="demoApp.openTransferModal(iou.linearId.id)" type="button" class="btn btn-primary">Transfer
+                                <button ng-click="demoApp.openTransferModal(bond.linearId.id)" type="button" class="btn btn-primary">Transfer
                                 </button>
-                                <button ng-click="demoApp.openSettleModal(iou.linearId.id)" type="button" class="btn btn-primary">Settle
+                                <button ng-click="demoApp.openSettleModal(bond.linearId.id)" type="button" class="btn btn-primary">Settle
                                 </button>
                             </div>
                         </td>
