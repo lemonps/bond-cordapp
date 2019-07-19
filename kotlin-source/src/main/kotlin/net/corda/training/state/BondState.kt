@@ -29,10 +29,31 @@ data class BondState(val issuer: Party,
                      val issueDate: String,
                      val maturityDate: String,
                      val interestRate: Double,
-                     override val linearId: UniqueIdentifier = UniqueIdentifier()): LinearState {
+                     override val linearId: UniqueIdentifier = UniqueIdentifier()): LinearState, QueryableState  {
     /**
      *  This property holds a list of the nodes which can "use" this state in a valid transaction. In this case, the
      *  lender or the borrower.
      */
     override val participants: List<Party> get() = listOf(issuer, borrower)
+
+
+override fun generateMappedObject(schema: MappedSchema): PersistentState {
+    return when (schema) {
+        is BondSchemaV1 -> BondSchemaV1.PersistentBond(
+                this.issuer.name.toString(),
+                this.borrower.name.toString(),
+                this.bondName,
+                this.duration,
+                this.total,
+                this.amount,
+                this.unit,
+                this.issueDate,
+                this.maturityDate,
+                this.interestRate,
+                this.linearId.id
+        )
+        else -> throw IllegalArgumentException("Unrecognised schema $schema")
+    }
 }
+
+override fun supportedSchemas(): Iterable<MappedSchema> = listOf(BondSchemaV1)
