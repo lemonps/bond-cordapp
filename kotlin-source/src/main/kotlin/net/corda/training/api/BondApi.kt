@@ -115,10 +115,13 @@ class BondApi(val rpcOps: CordaRPCOps) {
             Response {
         val me = rpcOps.nodeInfo().legalIdentities.first()
         val total = (amount*unit)
-        val currentDate = SimpleDateFormat("dd/MM/yyyy")
-        val issueDate = currentDate.format(Date())
+        val currentDate = Calendar.getInstance()
+        val dateFormat = SimpleDateFormat("dd/MM/yyyy")
+        val issueDate = dateFormat.format(currentDate.getTime())
+        currentDate.add(Calendar.YEAR, duration)
+        val maturityDate = dateFormat.format(currentDate.getTime())
         try {
-            val bondState = BondState(me, me, name, duration, total, amount, unit, issueDate, issueDate, interest, UniqueIdentifier())
+            val bondState = BondState(me, me, name, duration, total, amount, unit, issueDate, maturityDate, interest, UniqueIdentifier())
             rpcOps.startFlow(::BondIssueFlow, bondState).returnValue.get()
             return Response.status(Response.Status.CREATED).entity("Issue Bond ${bondState} Successfully").build()
 
