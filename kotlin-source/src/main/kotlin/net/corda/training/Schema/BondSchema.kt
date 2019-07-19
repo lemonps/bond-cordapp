@@ -25,8 +25,8 @@ object BondSchemaV1 : MappedSchema(
             @Column(name = "issuer")
             var issuer: String,
 
-            @Column(name = "borrower")
-            var borrower: String,
+            @Column(name = "owner")
+            var owner: String,
 
             @Column(name = "bondName")
             var bondName: String,

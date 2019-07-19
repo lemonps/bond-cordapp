@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="64bd4598-e59e-4ddb-af9e-03c6c1eb9401" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kotlin-source/src/main/kotlin/net/corda/training/api/BondApi.kt" beforeDir="false" afterPath="$PROJECT_DIR$/kotlin-source/src/main/kotlin/net/corda/training/api/BondApi.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kotlin-source/src/main/kotlin/net/corda/training/Schema/BondSchema.kt" beforeDir="false" afterPath="$PROJECT_DIR$/kotlin-source/src/main/kotlin/net/corda/training/Schema/BondSchema.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kotlin-source/src/main/kotlin/net/corda/training/state/BondState.kt" beforeDir="false" afterPath="$PROJECT_DIR$/kotlin-source/src/main/kotlin/net/corda/training/state/BondState.kt" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.gradle/" />
     <ignored path="$PROJECT_DIR$/build/" />
@@ -34,11 +34,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/kotlin-source/src/main/kotlin/net/corda/training/state/BondState.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="28" column="42" selection-start-line="28" selection-start-column="36" selection-end-line="28" selection-end-column="42" />
+            <state relative-caret-position="527">
+              <caret line="40" column="71" selection-start-line="40" selection-start-column="71" selection-end-line="40" selection-end-column="71" />
             </state>
           </provider>
         </entry>
@@ -55,8 +55,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/kotlin-source/src/main/kotlin/net/corda/training/api/BondApi.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="732">
-              <caret line="120" column="122" selection-start-line="120" selection-end-line="121" />
+            <state relative-caret-position="-16">
+              <caret line="91" column="17" selection-start-line="91" selection-start-column="16" selection-end-line="91" selection-end-column="17" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/kotlin-source/src/main/kotlin/net/corda/training/Schema/BondSchema.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="185">
+              <caret line="27" column="35" lean-forward="true" selection-start-line="27" selection-start-column="35" selection-end-line="27" selection-end-column="35" />
             </state>
           </provider>
         </entry>
@@ -74,8 +83,9 @@
         <option value="$PROJECT_DIR$/kotlin-source/src/main/kotlin/net/corda/training/flow/BondSettleFlow.kt" />
         <option value="$PROJECT_DIR$/kotlin-source/build.gradle" />
         <option value="$PROJECT_DIR$/kotlin-source/src/main/kotlin/net/corda/training/flow/BondIssueFlow.kt" />
-        <option value="$PROJECT_DIR$/kotlin-source/src/main/kotlin/net/corda/training/state/BondState.kt" />
         <option value="$PROJECT_DIR$/kotlin-source/src/main/kotlin/net/corda/training/api/BondApi.kt" />
+        <option value="$PROJECT_DIR$/kotlin-source/src/main/kotlin/net/corda/training/state/BondState.kt" />
+        <option value="$PROJECT_DIR$/kotlin-source/src/main/kotlin/net/corda/training/Schema/BondSchema.kt" />
       </list>
     </option>
   </component>
@@ -177,6 +187,16 @@
               <item name="kotlin" type="462c0819:PsiDirectoryNode" />
               <item name="training" type="462c0819:PsiDirectoryNode" />
               <item name="plugin" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="bond-cordapp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="bond-cordapp" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="kotlin-source" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="kotlin" type="462c0819:PsiDirectoryNode" />
+              <item name="training" type="462c0819:PsiDirectoryNode" />
+              <item name="Schema" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="bond-cordapp" type="b2602c69:ProjectViewProjectNode" />
@@ -301,6 +321,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/kotlin-source/src/main/kotlin/net/corda/training/api/BondApi.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-16">
+          <caret line="91" column="17" selection-start-line="91" selection-start-column="16" selection-end-line="91" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/kotlin-source/src/main/kotlin/net/corda/training/flow/BondIssueFlow.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="233">
@@ -308,17 +335,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/kotlin-source/src/main/kotlin/net/corda/training/api/BondApi.kt">
+    <entry file="file://$PROJECT_DIR$/kotlin-source/src/main/kotlin/net/corda/training/state/BondState.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="732">
-          <caret line="120" column="122" selection-start-line="120" selection-end-line="121" />
+        <state relative-caret-position="527">
+          <caret line="40" column="71" selection-start-line="40" selection-start-column="71" selection-end-line="40" selection-end-column="71" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/kotlin-source/src/main/kotlin/net/corda/training/state/BondState.kt">
+    <entry file="file://$PROJECT_DIR$/kotlin-source/src/main/kotlin/net/corda/training/Schema/BondSchema.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="28" column="42" selection-start-line="28" selection-start-column="36" selection-end-line="28" selection-end-column="42" />
+        <state relative-caret-position="185">
+          <caret line="27" column="35" lean-forward="true" selection-start-line="27" selection-start-column="35" selection-end-line="27" selection-end-column="35" />
         </state>
       </provider>
     </entry>
