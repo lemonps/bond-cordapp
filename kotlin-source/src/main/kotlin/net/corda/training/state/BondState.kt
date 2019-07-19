@@ -33,7 +33,7 @@ data class BondState(val issuer: Party,
                      val issueDate: String,
                      val maturityDate: String,
                      val interestRate: Double,
-                     override val linearId: UniqueIdentifier = UniqueIdentifier()): LinearState, QueryableState {
+                     override val linearId: UniqueIdentifier = UniqueIdentifier()): LinearState  {
     /**
      *  This property holds a list of the nodes which can "use" this state in a valid transaction. In this case, the
      *  lender or the borrower.
@@ -41,24 +41,24 @@ data class BondState(val issuer: Party,
     override val participants: List<Party> get() = listOf(issuer, owner)
 
 
-    override fun generateMappedObject(schema: MappedSchema): PersistentState {
-        return when (schema) {
-            is BondSchemaV1 -> BondSchemaV1.PersistentBond(
-                    this.issuer.name.toString(),
-                    this.owner.name.toString(),
-                    this.bondName,
-                    this.duration,
-                    this.total,
-                    this.amount,
-                    this.unit,
-                    this.issueDate,
-                    this.maturityDate,
-                    this.interestRate,
-                    this.linearId.id
-            )
-            else -> throw IllegalArgumentException("Unrecognised schema $schema")
-        }
-    }
-
-    override fun supportedSchemas(): Iterable<MappedSchema> = listOf(BondSchemaV1)
+//    override fun generateMappedObject(schema: MappedSchema): PersistentState {
+//        return when (schema) {
+//            is BondSchemaV1 -> BondSchemaV1.PersistentBond(
+//                    this.issuer.name.toString(),
+//                    this.owner.name.toString(),
+//                    this.bondName,
+//                    this.duration,
+//                    this.total,
+//                    this.amount,
+//                    this.unit,
+//                    this.issueDate,
+//                    this.maturityDate,
+//                    this.interestRate,
+//                    this.linearId.id
+//            )
+//            else -> throw IllegalArgumentException("Unrecognised schema $schema")
+//        }
+//    }
+//
+//    override fun supportedSchemas(): Iterable<MappedSchema> = listOf(BondSchemaV1)
 }

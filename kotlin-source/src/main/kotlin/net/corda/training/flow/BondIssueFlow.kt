@@ -45,7 +45,7 @@ class BondIssueFlow(val state: BondState): FlowLogic<SignedTransaction>() {
 //        val stx = subFlow(CollectSignaturesFlow(ptx, sessions))
 
         // Step 7. Assuming no exceptions, we can now finalise the transaction.
-        return subFlow(FinalityFlow(ptx, singletonList(session)))
+        return subFlow(FinalityFlow(ptx, emptyList()))
     }
 }
 
