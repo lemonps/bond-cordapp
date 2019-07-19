@@ -8,6 +8,7 @@ import net.corda.core.transactions.SignedTransaction
 import net.corda.core.transactions.TransactionBuilder
 import net.corda.training.contract.BondContract
 import net.corda.training.state.BondState
+import java.util.Collections.singletonList
 
 /**
  * This is the flow which handles issuance of new IOUs on the ledger.
@@ -39,12 +40,12 @@ class BondIssueFlow(val state: BondState): FlowLogic<SignedTransaction>() {
         builder.verify(serviceHub)
         val ptx = serviceHub.signInitialTransaction(builder)
 
-//        val sessions = (state.participants - ourIdentity).map { initiateFlow(it) }.toSet()
+        val session = initiateFlow(ourIdentity)
 //        // Step 6. Collect the other party's signature using the SignTransactionFlow.
 //        val stx = subFlow(CollectSignaturesFlow(ptx, sessions))
 
         // Step 7. Assuming no exceptions, we can now finalise the transaction.
-        return ptx
+        return subFlow(FinalityFlow(ptx, singletonList(session)))
     }
 }
 
