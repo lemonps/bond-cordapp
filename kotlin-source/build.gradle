@@ -91,7 +91,7 @@ tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
 }
 
 task deployNodes(type: net.corda.plugins.Cordform, dependsOn: ['jar']) {
-    delete "./build/nodes"
+    //delete "./build/nodes"
     directory "./build/nodes"
 
     signing {

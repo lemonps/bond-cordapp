@@ -26,8 +26,8 @@ data class BondState(val issuer: Party,
                      val total: Int,
                      val amount: Int,
                      val unit: Int,
-                     val issueDate: Date,
-                     val maturityDate: Date,
+                     val issueDate: String,
+                     val maturityDate: String,
                      val interestRate: Double,
                      override val linearId: UniqueIdentifier = UniqueIdentifier()): LinearState {
     /**

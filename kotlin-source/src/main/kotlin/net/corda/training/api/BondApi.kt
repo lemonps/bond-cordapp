@@ -19,6 +19,9 @@ import net.corda.training.state.BondState
 import org.bouncycastle.asn1.x500.X500Name
 import org.bouncycastle.asn1.x500.style.BCStyle
 import org.slf4j.Logger
+import java.text.SimpleDateFormat
+import java.time.Instant
+import java.time.ZonedDateTime
 import java.util.*
 import javax.ws.rs.GET
 import javax.ws.rs.PUT
@@ -111,10 +114,12 @@ class BondApi(val rpcOps: CordaRPCOps) {
                    @QueryParam(value = "Interest_Rate") interest: Double):
             Response {
         val me = rpcOps.nodeInfo().legalIdentities.first()
+        val currentDate = SimpleDateFormat("dd/MM/yyyy")
+        val issueDate = currentDate.format(Date())
         try {
-            val bondState = BondState(me, me, name, duration,100000, amount, unit, Calendar.getInstance().time, Calendar.getInstance().time, interest, UniqueIdentifier())
+            val bondState = BondState(me, me, name, duration,100000, amount, unit, issueDate, issueDate, interest, UniqueIdentifier())
             rpcOps.startFlow(::BondIssueFlow, bondState).returnValue.get()
-            return Response.status(Response.Status.CREATED).entity("Issue Bond Successfully").build()
+            return Response.status(Response.Status.CREATED).entity("Issue Bond ${bondState} Successfully").build()
 
         } catch (e: Exception) {
             return Response
