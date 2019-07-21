@@ -12,11 +12,11 @@ angular.module('demoAppModule', ['ui.bootstrap']).controller('DemoAppCtrl', func
     $http.get(apiBaseURL + "peers").then((response) => peers = response.data.peers);
 
     /** Displays the IOU creation modal. */
-    demoApp.openCreateIOUModal = () => {
-        const createIOUModal = $uibModal.open({
-            templateUrl: 'createIOUModal.html',
-            controller: 'CreateIOUModalCtrl',
-            controllerAs: 'createIOUModal',
+    demoApp.openIssueBondModal = () => {
+        const issueBondModal = $uibModal.open({
+            templateUrl: 'issueBondModal.html',
+            controller: 'IssueBondModalCtrl',
+            controllerAs: 'issueBondModal',
             resolve: {
                 apiBaseURL: () => apiBaseURL,
                 peers: () => peers
@@ -24,7 +24,7 @@ angular.module('demoAppModule', ['ui.bootstrap']).controller('DemoAppCtrl', func
         });
 
         // Ignores the modal result events.
-        createIOUModal.result.then(() => {}, () => {});
+        issueBondModal.result.then(() => {}, () => {});
     };
 
     /** Displays the cash issuance modal. */

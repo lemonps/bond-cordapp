@@ -27,9 +27,8 @@ class BondContract : Contract {
      * function to check for a number of commands which implement this interface.
      */
     interface Commands : CommandData {
-        class Issue : TypeOnlyCommandData(), Commands
-        class Transfer : TypeOnlyCommandData(), Commands
-        class Settle : TypeOnlyCommandData(), Commands
+        class IssueBond : TypeOnlyCommandData(), Commands
+        class TransferBond : TypeOnlyCommandData(), Commands
     }
 
     /**
@@ -39,13 +38,10 @@ class BondContract : Contract {
     override fun verify(tx: LedgerTransaction) {
         val command = tx.commands.requireSingleCommand<BondContract.Commands>()
         when (command.value) {
-            is Commands.Issue -> requireThat {
+            is Commands.IssueBond -> requireThat {
 
             }
-            is Commands.Transfer -> requireThat {
-
-            }
-            is Commands.Settle -> {
+            is Commands.TransferBond -> requireThat {
 
             }
         }

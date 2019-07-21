@@ -27,7 +27,7 @@ class BondIssueFlow(val state: BondState): FlowLogic<SignedTransaction>() {
 
         // Step 2. Create a new issue command.
         // Remember that a command is a CommandData object and a list of CompositeKeys
-        val issueCommand = Command(BondContract.Commands.Issue(), state.issuer.owningKey )
+        val issueCommand = Command(BondContract.Commands.IssueBond(), state.issuer.owningKey )
 
         // Step 3. Create a new TransactionBuilder object.
         val builder = TransactionBuilder(notary = notary)
@@ -40,7 +40,7 @@ class BondIssueFlow(val state: BondState): FlowLogic<SignedTransaction>() {
         builder.verify(serviceHub)
         val ptx = serviceHub.signInitialTransaction(builder)
 
-        val session = initiateFlow(ourIdentity)
+//        val session = initiateFlow(ourIdentity)
 //        // Step 6. Collect the other party's signature using the SignTransactionFlow.
 //        val stx = subFlow(CollectSignaturesFlow(ptx, sessions))
 

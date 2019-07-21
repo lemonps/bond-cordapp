@@ -91,7 +91,7 @@ tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
 }
 
 task deployNodes(type: net.corda.plugins.Cordform, dependsOn: ['jar']) {
-    //delete "./build/nodes"
+    delete "./build/nodes"
     directory "./build/nodes"
 
     signing {
@@ -117,7 +117,7 @@ task deployNodes(type: net.corda.plugins.Cordform, dependsOn: ['jar']) {
         }
     }
     node {
-        name "O=ParticipantA,L=London,C=GB"
+        name "O=Agent,L=Bangkok,C=TH"
         p2pPort 10007
         webPort 10009
         rpcSettings {

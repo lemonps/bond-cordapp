@@ -23,11 +23,7 @@ import java.text.SimpleDateFormat
 import java.time.Instant
 import java.time.ZonedDateTime
 import java.util.*
-import javax.ws.rs.GET
-import javax.ws.rs.PUT
-import javax.ws.rs.Path
-import javax.ws.rs.Produces
-import javax.ws.rs.QueryParam
+import javax.ws.rs.*
 import javax.ws.rs.core.MediaType
 import javax.ws.rs.core.Response
 
@@ -105,23 +101,28 @@ class BondApi(val rpcOps: CordaRPCOps) {
     // Display cash balances.
     fun getCashBalances() = rpcOps.getCashBalances()
 
-    @PUT
-    @Path("agent-issue-bond")
+    @POST
+    @Path("issue-bond")
     fun issueBond (@QueryParam(value = "Bond_Name") name: String,
                    @QueryParam(value = "Amount") amount: Int,
                    @QueryParam(value = "Price_Per_Unit") unit: Int,
                    @QueryParam(value = "Duration") duration: Int,
-                   @QueryParam(value = "Interest_Rate") interest: Double):
+                   @QueryParam(value = "Interest_Rate") interestRate: Double):
             Response {
+
         val me = rpcOps.nodeInfo().legalIdentities.first()
         val total = (amount*unit)
+        // get current date.
         val currentDate = Calendar.getInstance()
+        // change date format to dd/MM/yyyy
         val dateFormat = SimpleDateFormat("dd/MM/yyyy")
         val issueDate = dateFormat.format(currentDate.getTime())
+        // set maturity date from duration of bond.
         currentDate.add(Calendar.YEAR, duration)
         val maturityDate = dateFormat.format(currentDate.getTime())
+
         try {
-            val bondState = BondState(me, me, name, duration, total, amount, unit, issueDate, maturityDate, interest, UniqueIdentifier())
+            val bondState = BondState(me, me, name, duration, total, amount, unit, issueDate, maturityDate, interestRate, UniqueIdentifier())
             rpcOps.startFlow(::BondIssueFlow, bondState).returnValue.get()
             return Response.status(Response.Status.CREATED).entity("Issue Bond ${bondState} Successfully").build()
 

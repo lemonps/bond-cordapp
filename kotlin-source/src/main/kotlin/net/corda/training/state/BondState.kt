@@ -40,6 +40,8 @@ data class BondState(val issuer: Party,
      */
     override val participants: List<Party> get() = listOf(issuer, owner)
 
+    fun newBondOwner(newOwner: Party) = copy(owner = newOwner)
+
 
 //    override fun generateMappedObject(schema: MappedSchema): PersistentState {
 //        return when (schema) {
