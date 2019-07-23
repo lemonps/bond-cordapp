@@ -25,7 +25,7 @@ angular.module('demoAppModule').controller('IssueBondModalCtrl', function($http,
             // We define the Bond creation endpoint.
             const issueBondEndpoint =
                 apiBaseURL +
-                `issue-bond?Bond_Name=${bondName}&Amount=${amount}&Price_Per_Unit=${unit}&Duration=${duration}&Interest_Rate=${interestRate}`;
+                `issue-bond?bondName=${bondName}&amount=${amount}&pricePerUnit=${unit}&duration=${duration}&i nterestRate=${interestRate}`;
 
             // We hit the endpoint to create the Bond and handle success/failure responses.
             $http.post(issueBondEndpoint).then(

@@ -31,7 +31,7 @@ COMING WEEKS, WE'LL WRITE A TUTORIAL ON HOW BEST TO DO THIS.
     <script src="js/main.js"></script>
     <script src="js/issueBondModal.js"></script>
     <script src="js/issueCashModal.js"></script>
-    <script src="js/transferModal.js"></script>
+    <script src="js/transferBondModal.js"></script>
     <script src="js/settleModal.js"></script>
 </head>
 
@@ -42,9 +42,6 @@ COMING WEEKS, WE'LL WRITE A TUTORIAL ON HOW BEST TO DO THIS.
             <a class="navbar-brand" href="#">{{demoApp.thisNode}}</a>
         </div>
         <button ng-click="demoApp.openIssueBondModal()" type="button" class="btn btn-primary navbar-btn">Issue Bond</button>
-        <button ng-click="demoApp.openCreateIOUModal()" type="button" class="btn btn-primary navbar-btn">Purchase Bond</button>
-<!--        <button ng-click="demoApp.openCreateIOUModal()" type="button" class="btn btn-primary navbar-btn">Create IOU</button>-->
-<!--        <button ng-click="demoApp.openIssueCashModal()" type="button" class="btn btn-primary navbar-btn">Issue cash</button>-->
         <button ng-click="demoApp.refresh()" type="button" class="btn btn-default navbar-btn"><span
                 class="glyphicon glyphicon-refresh"></span></button>
     </div>
@@ -92,10 +89,47 @@ COMING WEEKS, WE'LL WRITE A TUTORIAL ON HOW BEST TO DO THIS.
     </script>
 
     <script type="text/ng-template" id="issueBondMsgModal.html">
-        <div class="modal-body" id="create-bond-modal-body">
+        <div class="modal-body" id="issue-bond-modal-body">
             {{ issueBondMsgModal.message }}
         </div>
     </script>
+
+<script type="text/ng-template" id="transferBondModal.html">
+    <div class="modal-header">
+        <h4 class="modal-title">Transfer Bond</h4>
+    </div>
+    <form>
+        <div class="modal-body">
+            <div class="form-group">
+                <label for="transferBondCounterParty" class="control-label">Counter Party</label>
+                <select ng-model="transferBondModal.form.counterParty" class="form-control" id="transferBondCounterParty"
+                        ng-options="peer as peer for peer in transferBondModal.peers">
+                </select>
+           </div>
+           <div class="form-group">
+                <label for="transferBondAmount" class="control-label">Amount of Bond (Int):</label>
+                <input type="number" ng-model="transferBondModal.form.amount" class="form-control" id="transferBondAmount">
+           </div>
+           <div ng-show="transferBondModal.formError" class="form-group">
+                <div class="alert alert-danger" role="alert">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <span class="sr-only">Error:</span>
+                       Enter valid Bond issue parameters
+                </div>
+           </div>
+        </div>
+        <div class="modal-footer">
+            <button ng-click="transferBondModal.cancel()" type="button" class="btn btn-default">Close</button>
+            <button ng-click="transferBondModal.transfer()" type="button" class="btn btn-primary">Transfer Bond</button>
+        </div>
+    </form>
+</script>
+
+<script type="text/ng-template" id="transferBondMsgModal.html">
+    <div class="modal-body" id="transfer-bond-modal-body">
+        {{ issueBondMsgModal.message }}
+    </div>
+</script>
 
 <!--<script type="text/ng-template" id="createIOUModal.html">-->
 <!--    <div class="modal-header">-->
@@ -308,14 +342,12 @@ COMING WEEKS, WE'LL WRITE A TUTORIAL ON HOW BEST TO DO THIS.
                         <td class="vert-align">{{bond.amount}}</td>
                         <td class="vert-align">{{bond.unit}}</td>
                         <td class="vert-align">{{bond.total}}</td>
-<!--                        <td>-->
-<!--                            <div class="btn-group" role="group">-->
-<!--                                <button ng-click="demoApp.openTransferModal(bond.linearId.id)" type="button" class="btn btn-primary">Transfer-->
-<!--                                </button>-->
-<!--                                <button ng-click="demoApp.openSettleModal(bond.linearId.id)" type="button" class="btn btn-primary">Settle-->
-<!--                                </button>-->
-<!--                            </div>-->
-<!--                        </td>-->
+                        <td>
+                            <div class="btn-group" role="group">
+                                <button ng-click="demoApp.openTransferBondModal(bond.linearId.id)" type="button" class="btn btn-primary">Transfer
+                                </button>
+                            </div>
+                        </td>
                     </tr>
                     </tbody>
                 </table>

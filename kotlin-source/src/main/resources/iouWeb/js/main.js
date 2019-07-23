@@ -42,11 +42,11 @@ angular.module('demoAppModule', ['ui.bootstrap']).controller('DemoAppCtrl', func
     };
 
     /** Displays the IOU transfer modal. */
-    demoApp.openTransferModal = (id) => {
-        const transferModal = $uibModal.open({
-            templateUrl: 'transferModal.html',
-            controller: 'TransferModalCtrl',
-            controllerAs: 'transferModal',
+    demoApp.openTransferBondModal = (id) => {
+        const transferBondModal = $uibModal.open({
+            templateUrl: 'transferBondModal.html',
+            controller: 'TransferBondModalCtrl',
+            controllerAs: 'transferBondModal',
             resolve: {
                 apiBaseURL: () => apiBaseURL,
                 peers: () => peers,
@@ -54,7 +54,7 @@ angular.module('demoAppModule', ['ui.bootstrap']).controller('DemoAppCtrl', func
             }
         });
 
-        transferModal.result.then(() => {}, () => {});
+        transferBondModal.result.then(() => {}, () => {});
     };
 
     /** Displays the IOU settlement modal. */
