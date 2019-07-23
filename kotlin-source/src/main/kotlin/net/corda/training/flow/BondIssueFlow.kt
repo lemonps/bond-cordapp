@@ -33,7 +33,7 @@ class BondIssueFlow(val state: BondState): FlowLogic<SignedTransaction>() {
         val builder = TransactionBuilder(notary = notary)
 
         // Step 4. Add the iou as an output state, as well as a command to the transaction builder.
-        builder.addOutputState(state, BondContract.IOU_CONTRACT_ID)
+        builder.addOutputState(state, BondContract.BOND_CONTRACT_ID)
         builder.addCommand(issueCommand)
 
         // Step 5. Verify and sign it with our KeyPair.

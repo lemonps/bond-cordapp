@@ -103,11 +103,11 @@ class BondApi(val rpcOps: CordaRPCOps) {
 
     @POST
     @Path("issue-bond")
-    fun issueBond (@QueryParam(value = "Bond_Name") name: String,
-                   @QueryParam(value = "Amount") amount: Int,
-                   @QueryParam(value = "Price_Per_Unit") unit: Int,
-                   @QueryParam(value = "Duration") duration: Int,
-                   @QueryParam(value = "Interest_Rate") interestRate: Double):
+    fun issueBond (@QueryParam(value = "bondName") name: String,
+                   @QueryParam(value = "amount") amount: Int,
+                   @QueryParam(value = "pricePerUnit") unit: Int,
+                   @QueryParam(value = "duration") duration: Int,
+                   @QueryParam(value = "interestRate") interestRate: Double):
             Response {
 
         val me = rpcOps.nodeInfo().legalIdentities.first()
@@ -134,6 +134,22 @@ class BondApi(val rpcOps: CordaRPCOps) {
         }
     }
 
+    @GET
+    @Path("transfer-bond")
+    fun transferBond (@QueryParam(value = "party") party: String,
+                      @QueryParam(value = "amount") amount: Int): Response {
+        val holderParty = rpcOps.wellKnownPartyFromX500Name(CordaX500Name.parse(party)) ?: throw IllegalArgumentException("Unknown party name.")
+        try {
+            rpcOps.startFlow(::BondTransferFlow, UniqueIdentifier(), holderParty, amount).returnValue.get()
+            return Response.status(Response.Status.CREATED).entity("Transfer Bond Amount ${amount} to ${holderParty} Successfully.").build()
+
+        } catch (e: Exception) {
+            return Response
+                    .status(Response.Status.BAD_REQUEST)
+                    .entity(e.message)
+                    .build()
+        }
+    }
 //    /**
 //     * Initiates a flow to agree an IOU between two parties.
 //     * Example request:

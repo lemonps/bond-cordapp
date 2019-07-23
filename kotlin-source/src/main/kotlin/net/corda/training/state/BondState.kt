@@ -22,6 +22,7 @@ import java.util.*
  *   the vaults of all parties. Verify methods should check that one input and one output share the id in a transaction,
  *   except at issuance/termination.
  */
+
 @BelongsToContract(BondContract::class)
 data class BondState(val issuer: Party,
                      val owner: Party,
@@ -40,8 +41,8 @@ data class BondState(val issuer: Party,
      */
     override val participants: List<Party> get() = listOf(issuer, owner)
 
-    fun newBondOwner(newOwner: Party) = copy(owner = newOwner)
-
+    fun transferBond(newOwner: Party, purchaseAmount: Int)= copy(owner = newOwner, amount = purchaseAmount)
+    fun availableBond(purchaseAmount: Int)= copy(owner = this.owner, amount = amount.minus(purchaseAmount))
 
 //    override fun generateMappedObject(schema: MappedSchema): PersistentState {
 //        return when (schema) {

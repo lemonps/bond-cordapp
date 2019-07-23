@@ -18,7 +18,7 @@ import net.corda.training.state.BondState
 class BondContract : Contract {
     companion object {
         @JvmStatic
-        val IOU_CONTRACT_ID = "net.corda.training.contract.BondContract"
+        val BOND_CONTRACT_ID = "net.corda.training.contract.BondContract"
     }
 
     /**
