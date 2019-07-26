@@ -1,14 +1,14 @@
 package net.corda.training.state
 
-import net.corda.core.contracts.BelongsToContract
-import net.corda.core.contracts.LinearState
-import net.corda.core.contracts.UniqueIdentifier
+import net.corda.core.contracts.*
+import net.corda.core.identity.AbstractParty
 import net.corda.core.identity.Party
 import net.corda.core.schemas.MappedSchema
 import net.corda.core.schemas.PersistentState
 import net.corda.core.schemas.QueryableState
 import net.corda.training.Schema.BondSchemaV1
 import net.corda.training.contract.BondContract
+import java.security.PublicKey
 import java.util.*
 
 /**
@@ -25,20 +25,29 @@ import java.util.*
 
 @BelongsToContract(BondContract::class)
 data class BondState(val issuer: Party,
-                     val owner: Party,
+                     override val owner: Party,
                      val bondName: String,
                      val duration: Int,
                      val total: Int,
-                     val amount: Int,
+                     override val amount: Amount<Issued<BondState>,
                      val unit: Int,
                      val issueDate: String,
                      val maturityDate: String,
                      val interestRate: Double,
-                     override val linearId: UniqueIdentifier = UniqueIdentifier()): LinearState  {
+                     ): FungibleAsset<BondState>, OwnableState {
+    override fun withNewOwner(newOwner: AbstractParty): CommandAndState {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun withNewOwnerAndAmount(newAmount: Amount<Issued<BondState>>, newOwner: AbstractParty): FungibleAsset<BondState> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     /**
      *  This property holds a list of the nodes which can "use" this state in a valid transaction. In this case, the
      *  lender or the borrower.
      */
+    override val exitKeys: Collection<PublicKey> = setOf(owner.owningKey, amount.token.issuer.party.owningKey)
     override val participants: List<Party> get() = listOf(issuer, owner)
 
     fun transferBond(newOwner: Party, purchaseAmount: Int)= copy(owner = newOwner, amount = purchaseAmount)
