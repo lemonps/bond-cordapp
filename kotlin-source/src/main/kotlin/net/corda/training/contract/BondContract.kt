@@ -40,9 +40,21 @@ class BondContract : Contract {
         val command = tx.commands.requireSingleCommand<BondContract.Commands>()
         when (command.value) {
             is Commands.IssueBond -> requireThat {
-
+                "No inputs should be consumed when issuing an Bond." using (tx.inputs.isEmpty())
+                "Only one output state should be created when issuing an IOU." using (tx.outputs.size == 1)
+                val bond = tx.outputStates.single() as BondState
+                "Bond amount must be positive." using (bond.amount > 0)
+                "Bond unit (Price Per Unit) must be positive." using (bond.unit > 0)
+                "Bond duration must be positive." using (bond.duration > 0)
+                "Bond Interest Rate must be positive." using (bond.interestRate > 0)
+                "The issuer and owner must have the same identity." using (bond.issuer == bond.owner)
             }
-            is Commands.TransferBond -> requireThat {
+            is Commands.TransferBond -> requireThat { "An IOU transfer transaction should only consume one input state." using (tx.inputs.size == 1)
+                "An IOU transfer transaction should only create one output state." using (tx.outputs.size == 1)
+                val input = tx.inputStates.single() as BondState
+                val output = tx.outputStates.single() as BondState
+                "Only the lender property may change." using (input == output.withNewOwner(input.owner))
+                "The lender property must change in a transfer." using (input.issuer != output.owner)
 
             }
             is Commands.UserIssue -> requireThat {
