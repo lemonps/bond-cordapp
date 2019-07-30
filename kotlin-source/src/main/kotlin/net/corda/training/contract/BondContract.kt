@@ -29,6 +29,7 @@ class BondContract : Contract {
     interface Commands : CommandData {
         class IssueBond : TypeOnlyCommandData(), Commands
         class TransferBond : TypeOnlyCommandData(), Commands
+        class UserIssue : TypeOnlyCommandData(), Commands
     }
 
     /**
@@ -42,6 +43,9 @@ class BondContract : Contract {
 
             }
             is Commands.TransferBond -> requireThat {
+
+            }
+            is Commands.UserIssue -> requireThat {
 
             }
         }
