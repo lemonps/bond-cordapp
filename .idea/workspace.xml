@@ -3,10 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="64bd4598-e59e-4ddb-af9e-03c6c1eb9401" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kotlin-source/src/main/kotlin/net/corda/training/api/BondApi.kt" beforeDir="false" afterPath="$PROJECT_DIR$/kotlin-source/src/main/kotlin/net/corda/training/api/BondApi.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kotlin-source/src/main/kotlin/net/corda/training/flow/BondTransferFlow.kt" beforeDir="false" afterPath="$PROJECT_DIR$/kotlin-source/src/main/kotlin/net/corda/training/flow/BondTransferFlow.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kotlin-source/src/main/kotlin/net/corda/training/state/BondState.kt" beforeDir="false" afterPath="$PROJECT_DIR$/kotlin-source/src/main/kotlin/net/corda/training/state/BondState.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kotlin-source/src/main/resources/iouWeb/js/purchaseBondModal.js" beforeDir="false" afterPath="$PROJECT_DIR$/kotlin-source/src/main/resources/iouWeb/js/purchaseBondModal.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kotlin-source/src/main/resources/iouWeb/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/kotlin-source/src/main/resources/iouWeb/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kotlin-source/src/main/resources/iouWeb/js/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/kotlin-source/src/main/resources/iouWeb/js/main.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />

@@ -39,7 +39,7 @@ class BondTransferFlow(val linearId: UniqueIdentifier,
 //        }
 
         // Stage 3. Create the new IOU state reflecting a new lender.
-        val outputBond = inputBond.withNewOwner(newOwner, newAmount)
+        val outputBond = inputBond.withNewOwner(newOwner)
 
         // Stage 4. Create the transfer command.
         val signers = (inputBond.participants + newOwner).map { it.owningKey }

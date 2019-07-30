@@ -56,10 +56,14 @@ COMING WEEKS, WE'LL WRITE A TUTORIAL ON HOW BEST TO DO THIS.
     <form>
         <div class="modal-body">
             <div class="form-group">
-                <label for="purchaseBondName" class="control-label">Counter Party</label>
+                <label for="purchaseBondName" class="control-label">Bond Name</label>
                 <select ng-model="purchaseBondModal.form.bondName" class="form-control" id="purchaseBondName"
                         ng-options="bond-name as bond-name for bond-name in purchaseBondModal.bondName">
                 </select>
+            </div>
+            <div class="form-group">
+                <label for="purchaseBondUsername" class="control-label">Name:</label>
+                <input type="text" ng-model="purchaseBondModal.form.username" class="form-control" id="purchaseBondUsername">
             </div>
             <div class="form-group">
                 <label for="purchaseBondAmount" class="control-label">Amount of Bond (Int):</label>
@@ -74,8 +78,8 @@ COMING WEEKS, WE'LL WRITE A TUTORIAL ON HOW BEST TO DO THIS.
             </div>
         </div>
         <div class="modal-footer">
-            <button ng-click="transferBondModal.cancel()" type="button" class="btn btn-default">Close</button>
-            <button ng-click="transferBondModal.transfer()" type="button" class="btn btn-primary">Transfer Bond</button>
+            <button ng-click="purchaseBondModal.cancel()" type="button" class="btn btn-default">Close</button>
+            <button ng-click="purchaseBondModal.purchase()" type="button" class="btn btn-primary">Purchase Bond</button>
         </div>
     </form>
 </script>
