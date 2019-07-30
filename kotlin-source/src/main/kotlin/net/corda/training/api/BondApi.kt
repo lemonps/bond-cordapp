@@ -179,11 +179,13 @@ class BondApi(val rpcOps: CordaRPCOps) {
 
     @GET
     @Path("transfer-bond")
-    fun transferBond (@QueryParam(value = "party") party: String,
+    fun transferBond (@QueryParam(value = "id") id: String,
+                      @QueryParam(value = "party") party: String,
                       @QueryParam(value = "amount") amount: Int): Response {
+        val linearId = UniqueIdentifier.fromString(id)
         val holderParty = rpcOps.wellKnownPartyFromX500Name(CordaX500Name.parse(party)) ?: throw IllegalArgumentException("Unknown party name.")
         try {
-            rpcOps.startFlow(::BondTransferFlow, UniqueIdentifier(), holderParty).returnValue
+            rpcOps.startFlow(::BondTransferFlow, linearId, holderParty, amount).returnValue.get()
             return Response.status(Response.Status.CREATED).entity("Transfer Bond Amount ${amount} to ${holderParty} Successfully.").build()
 
         } catch (e: Exception) {

@@ -46,7 +46,7 @@ angular.module('demoAppModule').controller('PurchaseBondModalCtrl', function ($h
     purchaseBondModal.cancel = () => $uibModalInstance.dismiss();
 
     function invalidFormInput() {
-        return purchaseBondModal.form.counterParty === undefined;
+        return purchaseBondModal.form.bondName === undefined;
     }
 });
 

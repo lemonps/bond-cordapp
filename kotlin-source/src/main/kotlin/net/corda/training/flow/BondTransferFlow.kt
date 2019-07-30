@@ -24,7 +24,8 @@ import net.corda.training.state.BondState
 @InitiatingFlow
 @StartableByRPC
 class BondTransferFlow(val linearId: UniqueIdentifier,
-                      val newOwner: Party): FlowLogic<SignedTransaction>() {
+                       val newOwner: Party,
+                       val newAmount: Int): FlowLogic<SignedTransaction>() {
     @Suspendable
     override fun call(): SignedTransaction {
         // Stage 1. Retrieve IOU specified by linearId from the vault.
@@ -38,7 +39,7 @@ class BondTransferFlow(val linearId: UniqueIdentifier,
 //        }
 
         // Stage 3. Create the new IOU state reflecting a new lender.
-        val outputBond = inputBond.withNewOwner(newOwner)
+        val outputBond = inputBond.withNewOwner(newOwner, newAmount)
 
         // Stage 4. Create the transfer command.
         val signers = (inputBond.participants + newOwner).map { it.owningKey }
@@ -60,7 +61,7 @@ class BondTransferFlow(val linearId: UniqueIdentifier,
 
         // Stage 8. Collect signature from borrower and the new lender and add it to the transaction.
         // This also verifies the transaction and checks the signatures.
-        val sessions = (inputBond.participants - ourIdentity + newOwner).map { initiateFlow(it) }.toSet()
+        val sessions = (inputBond.participants - ourIdentity + newOwner).map { initiateFlow(newOwner) }.toSet()
         val stx = subFlow(CollectSignaturesFlow(ptx, sessions))
 
         // Stage 9. Notarise and record the transaction in our vaults.
