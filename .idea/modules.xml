@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/bond-cordapp.iml" filepath="$PROJECT_DIR$/.idea/modules/bond-cordapp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/kotlin-source/bond-cordapp.kotlin-source.iml" filepath="$PROJECT_DIR$/.idea/modules/kotlin-source/bond-cordapp.kotlin-source.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/kotlin-source/bond-cordapp.kotlin-source.main.iml" filepath="$PROJECT_DIR$/.idea/modules/kotlin-source/bond-cordapp.kotlin-source.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/kotlin-source/bond-cordapp.kotlin-source.test.iml" filepath="$PROJECT_DIR$/.idea/modules/kotlin-source/bond-cordapp.kotlin-source.test.iml" />
+    </modules>
+  </component>
+</project>
