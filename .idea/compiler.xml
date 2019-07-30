@@ -4,6 +4,8 @@
     <bytecodeTargetLevel>
       <module name="bond-cordapp.java-source.main" target="1.8" />
       <module name="bond-cordapp.java-source.test" target="1.8" />
+      <module name="bond-cordapp.kotlin-source.main" target="1.8" />
+      <module name="bond-cordapp.kotlin-source.test" target="1.8" />
       <module name="com.template.java-source.main" target="1.8" />
       <module name="com.template.java-source.test" target="1.8" />
       <module name="com.template.kotlin-source.main" target="1.8" />
