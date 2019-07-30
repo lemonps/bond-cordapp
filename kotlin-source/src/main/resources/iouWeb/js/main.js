@@ -41,6 +41,19 @@ angular.module('demoAppModule', ['ui.bootstrap']).controller('DemoAppCtrl', func
         issueCashModal.result.then(() => {}, () => {});
     };
 
+    demoApp.openPurchaseBondModal = () => {
+            const purchaseBondModal = $uibModal.open({
+                templateUrl: 'purchaseBondModal.html',
+                controller: 'purchaseBondModalCtrl',
+                controllerAs: 'purchaseBondModal',
+                resolve: {
+                    apiBaseURL: () => apiBaseURL
+                }
+            });
+
+            purchaseBondModal.result.then(() => {}, () => {});
+    };
+
     /** Displays the IOU transfer modal. */
     demoApp.openTransferBondModal = (id) => {
         const transferBondModal = $uibModal.open({

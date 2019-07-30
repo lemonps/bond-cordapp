@@ -32,6 +32,7 @@ COMING WEEKS, WE'LL WRITE A TUTORIAL ON HOW BEST TO DO THIS.
     <script src="js/issueBondModal.js"></script>
     <script src="js/issueCashModal.js"></script>
     <script src="js/transferBondModal.js"></script>
+    <script src="js/purchaseBondModal.js"></script>
     <script src="js/settleModal.js"></script>
 </head>
 
@@ -41,11 +42,50 @@ COMING WEEKS, WE'LL WRITE A TUTORIAL ON HOW BEST TO DO THIS.
         <div class="navbar-header">
             <a class="navbar-brand" href="#">{{demoApp.thisNode}}</a>
         </div>
+        <button ng-click="demoApp.openPurchaseBondModal()" type="button" class="btn btn-primary navbar-btn">Purchase Bond</button>
         <button ng-click="demoApp.openIssueBondModal()" type="button" class="btn btn-primary navbar-btn">Issue Bond</button>
         <button ng-click="demoApp.refresh()" type="button" class="btn btn-default navbar-btn"><span
                 class="glyphicon glyphicon-refresh"></span></button>
     </div>
 </nav>
+
+<script type="text/ng-template" id="purchaseBondModal.html">
+    <div class="modal-header">
+        <h4 class="modal-title">Purchase Bond</h4>
+    </div>
+    <form>
+        <div class="modal-body">
+            <div class="form-group">
+                <label for="purchaseBondName" class="control-label">Counter Party</label>
+                <select ng-model="purchaseBondModal.form.bondName" class="form-control" id="purchaseBondName"
+                        ng-options="bond-name as bond-name for bond-name in purchaseBondModal.bondName">
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="purchaseBondAmount" class="control-label">Amount of Bond (Int):</label>
+                <input type="number" ng-model="purchaseBondModal.form.amount" class="form-control" id="purchaseBondAmount">
+            </div>
+            <div ng-show="purchaseBondModal.formError" class="form-group">
+                <div class="alert alert-danger" role="alert">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <span class="sr-only">Error:</span>
+                    Enter valid Bond issue parameters
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button ng-click="transferBondModal.cancel()" type="button" class="btn btn-default">Close</button>
+            <button ng-click="transferBondModal.transfer()" type="button" class="btn btn-primary">Transfer Bond</button>
+        </div>
+    </form>
+</script>
+
+<script type="text/ng-template" id="purchaseBondMsgModal.html">
+    <div class="modal-body" id="purchase-bond-modal-body">
+        {{ purchaseBondMsgModal.message }}
+    </div>
+</script>
+
 
     <script type="text/ng-template" id="issueBondModal.html">
         <div class="modal-header">

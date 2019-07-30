@@ -5,6 +5,7 @@ import net.corda.core.contracts.ContractState
 import net.corda.core.contracts.StateAndRef
 import net.corda.core.contracts.UniqueIdentifier
 import net.corda.core.identity.CordaX500Name
+import net.corda.core.identity.Party
 import net.corda.core.internal.toX500Name
 import net.corda.core.messaging.CordaRPCOps
 import net.corda.core.messaging.startFlow
@@ -16,6 +17,7 @@ import net.corda.finance.contracts.asset.Cash
 import net.corda.finance.workflows.getCashBalances
 import net.corda.training.flow.*
 import net.corda.training.state.BondState
+import net.corda.training.state.UserState
 import org.bouncycastle.asn1.x500.X500Name
 import org.bouncycastle.asn1.x500.style.BCStyle
 import org.slf4j.Logger
@@ -81,6 +83,17 @@ class BondApi(val rpcOps: CordaRPCOps) {
         return rpcOps.vaultQueryBy<BondState>().states
     }
 
+    @GET
+    @Path("bond-name")
+    @Produces(MediaType.APPLICATION_JSON)
+    fun getBondName(): List<String>{
+        val bonds = rpcOps.vaultQueryBy<BondState>().states
+        val bondName : MutableList<String> = mutableListOf<String>()
+        for (bond in bonds){
+            bondName.add(bond.state.data.bondName)
+        }
+        return bondName
+    }
     /**
      * Displays all cash states that exist in the node's vault.
      */
@@ -134,13 +147,43 @@ class BondApi(val rpcOps: CordaRPCOps) {
         }
     }
 
+//    @POST
+//    @Path("purchase-bond")
+//    fun purchaseBond (@QueryParam(value = "username") username: String,
+//                      @QueryParam(value = "bondName") bondName: String,
+//                      @QueryParam(value = "amount") amount: Int): Response {
+//
+//        val me = rpcOps.nodeInfo().legalIdentities.first()
+//        val total = (amount*unit)
+//        // get current date.
+//        val currentDate = Calendar.getInstance()
+//        // change date format to dd/MM/yyyy
+//        val dateFormat = SimpleDateFormat("dd/MM/yyyy")
+//        val issueDate = dateFormat.format(currentDate.getTime())
+//        // set maturity date from duration of bond.
+//        currentDate.add(Calendar.YEAR, duration)
+//        val maturityDate = dateFormat.format(currentDate.getTime())
+//
+//        try {
+//            val bondState = UserState()
+//            rpcOps.startFlow(::BondIssueFlow, bondState).returnValue.get()
+//            return Response.status(Response.Status.CREATED).entity("Issue Bond ${bondState} Successfully").build()
+//
+//        } catch (e: Exception) {
+//            return Response
+//                    .status(Response.Status.BAD_REQUEST)
+//                    .entity(e.message)
+//                    .build()
+//        }
+//    }
+
     @GET
     @Path("transfer-bond")
     fun transferBond (@QueryParam(value = "party") party: String,
                       @QueryParam(value = "amount") amount: Int): Response {
         val holderParty = rpcOps.wellKnownPartyFromX500Name(CordaX500Name.parse(party)) ?: throw IllegalArgumentException("Unknown party name.")
         try {
-            rpcOps.startFlow(::BondTransferFlow, UniqueIdentifier(), holderParty, amount).returnValue.get()
+            rpcOps.startFlow(::BondTransferFlow, UniqueIdentifier(), holderParty).returnValue
             return Response.status(Response.Status.CREATED).entity("Transfer Bond Amount ${amount} to ${holderParty} Successfully.").build()
 
         } catch (e: Exception) {
