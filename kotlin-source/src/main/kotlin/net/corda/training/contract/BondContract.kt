@@ -5,6 +5,7 @@ import net.corda.core.transactions.LedgerTransaction
 import net.corda.finance.contracts.asset.Cash
 import net.corda.finance.contracts.utils.sumCash
 import net.corda.training.state.BondState
+import net.corda.training.state.UserState
 
 /**
  * The BondContract can handle three transaction types involving [BondState]s.
@@ -41,7 +42,7 @@ class BondContract : Contract {
         when (command.value) {
             is Commands.IssueBond -> requireThat {
                 "No inputs should be consumed when issuing an Bond." using (tx.inputs.isEmpty())
-                "Only one output state should be created when issuing an IOU." using (tx.outputs.size == 1)
+                "Only one output state should be created when issuing an Bond." using (tx.outputs.size == 1)
                 val bond = tx.outputStates.single() as BondState
                 "Bond amount must be positive." using (bond.amount > 0)
                 "Bond unit (Price Per Unit) must be positive." using (bond.unit > 0)
@@ -50,7 +51,7 @@ class BondContract : Contract {
                 "The issuer and owner must have the same identity." using (bond.issuer == bond.owner)
             }
             is Commands.TransferBond -> requireThat { "An IOU transfer transaction should only consume one input state." using (tx.inputs.size == 1)
-                "An IOU transfer transaction should only create one output state." using (tx.outputs.size == 1)
+                "A Bond transfer transaction should only create one output state." using (tx.outputs.size == 1)
                 val input = tx.inputStates.single() as BondState
                 val output = tx.outputStates.single() as BondState
                 "Only the lender property may change." using (input == output.withNewOwner(input.owner))
@@ -58,6 +59,10 @@ class BondContract : Contract {
 
             }
             is Commands.UserIssue -> requireThat {
+                "No inputs should be consumed when issuing an Bond." using (tx.inputs.isEmpty())
+                "Only one output state should be created when issuing an Bond." using (tx.outputs.size == 1)
+                val user = tx.outputStates.single() as UserState
+                "Bond amount must be positive." using (user.amount > 0)
 
             }
         }
