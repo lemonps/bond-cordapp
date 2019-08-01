@@ -10,7 +10,7 @@ angular.module('demoAppModule', ['ui.bootstrap']).controller('DemoAppCtrl', func
     let peers = [];
     $http.get(apiBaseURL + "me").then((response) => demoApp.thisNode = response.data.me);
     $http.get(apiBaseURL + "peers").then((response) => peers = response.data.peers);
-    $http.get(apiBaseURL + "bond-name").then((response) => response.data)
+    $http.get(apiBaseURL + "bond-name").then((response) => response.data.bond-name)
 
     /** Displays the IOU creation modal. */
     demoApp.openIssueBondModal = () => {
@@ -42,14 +42,15 @@ angular.module('demoAppModule', ['ui.bootstrap']).controller('DemoAppCtrl', func
         issueCashModal.result.then(() => {}, () => {});
     };
 
-    demoApp.openPurchaseBondModal = () => {
+    demoApp.openPurchaseBondModal = (id) => {
             const purchaseBondModal = $uibModal.open({
                 templateUrl: 'purchaseBondModal.html',
-                controller: 'purchaseBondModalCtrl',
+                controller: 'PurchaseBondModalCtrl',
                 controllerAs: 'purchaseBondModal',
                 resolve: {
                     apiBaseURL: () => apiBaseURL
-                    bond-name
+//                    bond-name: () => bond-name,
+//                    id: () => id
                 }
             });
 

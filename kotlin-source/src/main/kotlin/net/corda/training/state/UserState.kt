@@ -13,7 +13,7 @@ data class UserState(
                      val owner: Party,
                      val amount: Int,
                      val total: Int,
-                     val unit: Int,
+//                     val unit: Int,
                      override val linearId: UniqueIdentifier = UniqueIdentifier()): LinearState {
 
                         override val participants: List<Party> get() = listOf(owner)

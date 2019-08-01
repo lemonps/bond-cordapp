@@ -12,6 +12,11 @@ import net.corda.core.messaging.startFlow
 import net.corda.core.messaging.startTrackedFlow
 import net.corda.core.messaging.vaultQueryBy
 import net.corda.core.node.NodeInfo
+import net.corda.core.node.services.Vault
+import net.corda.core.node.services.vault.PageSpecification
+import net.corda.core.node.services.vault.QueryCriteria
+import net.corda.core.node.services.vault.Sort
+import net.corda.core.node.services.vault.builder
 import net.corda.core.utilities.loggerFor
 import net.corda.finance.contracts.asset.Cash
 import net.corda.finance.workflows.getCashBalances
@@ -84,6 +89,13 @@ class BondApi(val rpcOps: CordaRPCOps) {
     }
 
     @GET
+    @Path("purchased-bond")
+    @Produces(MediaType.APPLICATION_JSON)
+    fun getPurchasedBond(): List<StateAndRef<ContractState>> {
+        return rpcOps.vaultQueryBy<UserState>().states
+    }
+
+    @GET
     @Path("bond-name")
     @Produces(MediaType.APPLICATION_JSON)
     fun getBondName(): List<String>{
@@ -147,35 +159,30 @@ class BondApi(val rpcOps: CordaRPCOps) {
         }
     }
 
-//    @POST
-//    @Path("purchase-bond")
-//    fun purchaseBond (@QueryParam(value = "username") username: String,
-//                      @QueryParam(value = "bondName") bondName: String,
-//                      @QueryParam(value = "amount") amount: Int): Response {
-//
-//        val me = rpcOps.nodeInfo().legalIdentities.first()
-//        val total = (amount*unit)
-//        // get current date.
-//        val currentDate = Calendar.getInstance()
-//        // change date format to dd/MM/yyyy
-//        val dateFormat = SimpleDateFormat("dd/MM/yyyy")
-//        val issueDate = dateFormat.format(currentDate.getTime())
-//        // set maturity date from duration of bond.
-//        currentDate.add(Calendar.YEAR, duration)
-//        val maturityDate = dateFormat.format(currentDate.getTime())
-//
-//        try {
-//            val bondState = UserState()
-//            rpcOps.startFlow(::BondIssueFlow, bondState).returnValue.get()
-//            return Response.status(Response.Status.CREATED).entity("Issue Bond ${bondState} Successfully").build()
-//
-//        } catch (e: Exception) {
-//            return Response
-//                    .status(Response.Status.BAD_REQUEST)
-//                    .entity(e.message)
-//                    .build()
-//        }
-//    }
+    @POST
+    @Path("purchase-bond")
+    fun purchaseBond (@QueryParam(value = "id") id: String,
+                      @QueryParam(value = "username") username: String,
+                      @QueryParam(value = "bondName") bondName: String,
+                      @QueryParam(value = "amount") amount: Int): Response {
+        val uuid = UniqueIdentifier.fromString(id)
+        val ownerParty = rpcOps.nodeInfo().legalIdentities.first()
+        val criteria = QueryCriteria.LinearStateQueryCriteria(linearId = listOf(uuid))
+        val bond = rpcOps.vaultQueryBy<BondState>(criteria = criteria).states
+        val unit = bond.get(0).state.data.unit
+        val total = (amount * unit)
+        try {
+            val userState = UserState(username, bondName, ownerParty, amount, total)
+            rpcOps.startFlow(::UserIssueFlow, userState).returnValue.get()
+            return Response.status(Response.Status.CREATED).entity("Issue Bond ${userState} Successfully").build()
+
+        } catch (e: Exception) {
+            return Response
+                    .status(Response.Status.BAD_REQUEST)
+                    .entity(e.message)
+                    .build()
+        }
+    }
 
     @GET
     @Path("transfer-bond")

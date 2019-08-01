@@ -23,7 +23,7 @@ angular.module('demoAppModule').controller('PurchaseBondModalCtrl', function ($h
 
             const purchaseBondEndpoint =
                 apiBaseURL +
-                `purchase-bond?id=${id}&party=${party}&amount=${amount}`
+                `purchase-bond?id=${id}&bondName=${bondName}&amount=${amount}`
 
             $http.get(purchaseBondEndpoint).then(
                 (result) => purchaseBondModal.displayMessage(result),
