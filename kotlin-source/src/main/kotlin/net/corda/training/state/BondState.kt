@@ -1,5 +1,6 @@
 package net.corda.training.state
 
+import net.corda.core.contracts.Amount
 import net.corda.core.contracts.BelongsToContract
 import net.corda.core.contracts.LinearState
 import net.corda.core.contracts.UniqueIdentifier
@@ -42,7 +43,7 @@ data class BondState(val issuer: Party,
     override val participants: List<Party> get() = listOf(issuer, owner)
 
     fun withNewOwner(newOwner: Party)= copy(owner = newOwner)
-    fun availableBond(purchaseAmount: Int)= copy(owner = this.owner, amount = amount.minus(purchaseAmount))
+    // fun availableBond(purchaseAmount: Int)= copy(owner = this.owner, amount = amount.minus(purchaseAmount))
 
 //    override fun generateMappedObject(schema: MappedSchema): PersistentState {
 //        return when (schema) {

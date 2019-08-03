@@ -44,6 +44,7 @@ COMING WEEKS, WE'LL WRITE A TUTORIAL ON HOW BEST TO DO THIS.
         </div>
         <button ng-click="demoApp.openPurchaseBondModal()" type="button" class="btn btn-primary navbar-btn">Purchase Bond</button>
         <button ng-click="demoApp.openIssueBondModal()" type="button" class="btn btn-primary navbar-btn">Issue Bond</button>
+<!--        <button ng-click="demoApp.openIssueCashModal()" type="button" class="btn btn-primary navbar-btn">Issue Cash</button>-->
         <button ng-click="demoApp.refresh()" type="button" class="btn btn-default navbar-btn"><span
                 class="glyphicon glyphicon-refresh"></span></button>
     </div>
@@ -105,6 +106,10 @@ COMING WEEKS, WE'LL WRITE A TUTORIAL ON HOW BEST TO DO THIS.
                     <label for="issueBondAmount" class="control-label">Amount of Bond (Int):</label>
                     <input type="number" ng-model="issueBondModal.form.amount" class="form-control" id="issueBondAmount">
                 </div>
+<!--                <div class="form-group">-->
+<!--                    <label for="issueBondCurrency" class="control-label">Currency (ISO code):</label>-->
+<!--                    <input type="text" ng-model="issueBondModal.form.currency" class="form-control" id="issueBondCurrency">-->
+<!--                </div>-->
                 <div class="form-group">
                     <label for="issueBondUnit" class="control-label">Price per Unit (Int):</label>
                     <input type="number" ng-model="issueBondModal.form.unit" class="form-control" id="issueBondUnit">
@@ -115,7 +120,7 @@ COMING WEEKS, WE'LL WRITE A TUTORIAL ON HOW BEST TO DO THIS.
                 </div>
                 <div class="form-group">
                     <label for="issueBondInterestRate" class="control-label">Interest Rate (%):</label>
-                    <input type="number" ng-model="issueBondModal.form.interestRate" class="form-control" id="issueBondInterestRate">
+                    <input type="number" step="any" ng-model="issueBondModal.form.interestRate" class="form-control" id="issueBondInterestRate">
                 </div>
                 <div ng-show="issueBondModal.formError" class="form-group">
                     <div class="alert alert-danger" role="alert">
@@ -216,40 +221,40 @@ COMING WEEKS, WE'LL WRITE A TUTORIAL ON HOW BEST TO DO THIS.
 <!--    </div>-->
 <!--</script>-->
 
-<!--<script type="text/ng-template" id="issueCashModal.html">-->
-<!--    <div class="modal-header">-->
-<!--        <h4 class="modal-title">Self-issue cash</h4>-->
-<!--    </div>-->
-<!--    <form>-->
-<!--        <div class="modal-body">-->
-<!--            <div class="form-group">-->
-<!--                <label for="issueCashCurrency" class="control-label">Currency (ISO code):</label>-->
-<!--                <input type="text" ng-model="issueCashModal.form.currency" class="form-control" id="issueCashCurrency">-->
-<!--            </div>-->
-<!--            <div class="form-group">-->
-<!--                <label for="issueCashAmount" class="control-label">Amount (Int):</label>-->
-<!--                <input type="text" ng-model="issueCashModal.form.amount" class="form-control" id="issueCashAmount">-->
-<!--            </div>-->
-<!--            <div ng-show="issueCashModal.formError" class="form-group">-->
-<!--                <div class="alert alert-danger" role="alert">-->
-<!--                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>-->
-<!--                    <span class="sr-only">Error:</span>-->
-<!--                    Enter valid cash issuance parameters.-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="modal-footer">-->
-<!--            <button ng-click="issueCashModal.cancel()" type="button" class="btn btn-default">Close</button>-->
-<!--            <button ng-click="issueCashModal.issue()" type="button" class="btn btn-primary">Issue cash</button>-->
-<!--        </div>-->
-<!--    </form>-->
-<!--</script>-->
+<script type="text/ng-template" id="issueCashModal.html">
+    <div class="modal-header">
+        <h4 class="modal-title">Self-issue cash</h4>
+    </div>
+    <form>
+        <div class="modal-body">
+            <div class="form-group">
+                <label for="issueCashCurrency" class="control-label">Currency (ISO code):</label>
+                <input type="text" ng-model="issueCashModal.form.currency" class="form-control" id="issueCashCurrency">
+            </div>
+            <div class="form-group">
+                <label for="issueCashAmount" class="control-label">Amount (Int):</label>
+                <input type="text" ng-model="issueCashModal.form.amount" class="form-control" id="issueCashAmount">
+            </div>
+            <div ng-show="issueCashModal.formError" class="form-group">
+                <div class="alert alert-danger" role="alert">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <span class="sr-only">Error:</span>
+                    Enter valid cash issuance parameters.
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button ng-click="issueCashModal.cancel()" type="button" class="btn btn-default">Close</button>
+            <button ng-click="issueCashModal.issue()" type="button" class="btn btn-primary">Issue cash</button>
+        </div>
+    </form>
+</script>
 
-<!--<script type="text/ng-template" id="issueCashMsgModal.html">-->
-<!--    <div class="modal-body" id="issue-cash-modal-body">-->
-<!--        {{ issueCashMsgModal.message }}-->
-<!--    </div>-->
-<!--</script>-->
+<script type="text/ng-template" id="issueCashMsgModal.html">
+    <div class="modal-body" id="issue-cash-modal-body">
+        {{ issueCashMsgModal.message }}
+    </div>
+</script>
 
 <!--<script type="text/ng-template" id="transferModal.html">-->
 <!--    <div class="modal-header">-->
@@ -350,9 +355,9 @@ COMING WEEKS, WE'LL WRITE A TUTORIAL ON HOW BEST TO DO THIS.
     <div class="col-md-10">
         <div ng-show="!demoApp.ious.length" class="panel panel-primary">
             <div class="panel-heading">
-                <h3 class="panel-title">There are no recorded IOUs</h3>
+                <h3 class="panel-title">There are no recorded Bonds</h3>
             </div>
-            <div class="panel-body">Use the "Create IOU" button to send an IOU to a peer.</div>
+            <div class="panel-body">Use the "Create BOND" button to send an BOND to a peer.</div>
         </div>
         <div ng-show="demoApp.ious.length" class="panel panel-primary">
             <div class="panel-heading">

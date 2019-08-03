@@ -130,13 +130,14 @@ class BondApi(val rpcOps: CordaRPCOps) {
     @Path("issue-bond")
     fun issueBond (@QueryParam(value = "bondName") name: String,
                    @QueryParam(value = "amount") amount: Int,
+//                   @QueryParam(value = "currency") currency: String,
                    @QueryParam(value = "pricePerUnit") unit: Int,
                    @QueryParam(value = "duration") duration: Int,
                    @QueryParam(value = "interestRate") interestRate: Double):
             Response {
 
         val me = rpcOps.nodeInfo().legalIdentities.first()
-        val total = (amount*unit)
+        val total = (amount * unit)
         // get current date.
         val currentDate = Calendar.getInstance()
         // change date format to dd/MM/yyyy
@@ -147,7 +148,7 @@ class BondApi(val rpcOps: CordaRPCOps) {
         val maturityDate = dateFormat.format(currentDate.getTime())
 
         try {
-            val bondState = BondState(me, me, name, duration, total, amount, unit, issueDate, maturityDate, interestRate, UniqueIdentifier())
+            val bondState = BondState(me, me, name, duration, total, amount, unit, issueDate, maturityDate, interestRate)
             rpcOps.startFlow(::BondIssueFlow, bondState).returnValue.get()
             return Response.status(Response.Status.CREATED).entity("Issue Bond ${bondState} Successfully").build()
 

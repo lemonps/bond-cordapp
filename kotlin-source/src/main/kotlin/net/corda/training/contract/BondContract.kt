@@ -31,6 +31,7 @@ class BondContract : Contract {
         class IssueBond : TypeOnlyCommandData(), Commands
         class TransferBond : TypeOnlyCommandData(), Commands
         class UserIssue : TypeOnlyCommandData(), Commands
+        class SettleBond : TypeOnlyCommandData(), Commands
     }
 
     /**
@@ -47,7 +48,7 @@ class BondContract : Contract {
                 "Bond amount must be positive." using (bond.amount > 0)
                 "Bond unit (Price Per Unit) must be positive." using (bond.unit > 0)
                 "Bond duration must be positive." using (bond.duration > 0)
-                "Bond Interest Rate must be positive." using (bond.interestRate > 0)
+//                "Bond Interest Rate must be positive." using (bond.interestRate > 0)
                 "The issuer and owner must have the same identity." using (bond.issuer == bond.owner)
             }
             is Commands.TransferBond -> requireThat { "An IOU transfer transaction should only consume one input state." using (tx.inputs.size == 1)
@@ -63,6 +64,9 @@ class BondContract : Contract {
                 "Only one output state should be created when issuing an Bond." using (tx.outputs.size == 1)
                 val user = tx.outputStates.single() as UserState
                 "Bond amount must be positive." using (user.amount > 0)
+
+            }
+            is Commands.SettleBond -> requireThat {
 
             }
         }
